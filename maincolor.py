@@ -7,10 +7,14 @@ import sklearn
 from sklearn.cluster import KMeans
 
 colors = []
-files = glob.glob('./img_example/*.jpg')
+files = glob.glob('./img/*.jpg')
+# str_data = []
+# f=0
 
 #img_path→画像のパスを入力
 def get_main_color_list_img(img_path):
+
+# for f in files:
     # 画像ファイルの読み込み
     cv2_img = cv2.imread(img_path)
     # BGRからRGBに変換
@@ -19,7 +23,7 @@ def get_main_color_list_img(img_path):
     cv2_img = cv2_img.reshape(
         (cv2_img.shape[0] * cv2_img.shape[1], 3))
 
-    cluster = KMeans(n_clusters=3)
+    cluster = KMeans(n_clusters=5)
     # クラスタ化の対象となるデータ配列を指定してクラスタ化を実行させる、戻り値はない
     cluster.fit(X=cv2_img)
     # cluster_centers_ ---- クラスタの中心（セントロイド）の座標値の配列をint型で
@@ -45,22 +49,21 @@ def get_main_color_list_img(img_path):
     #         box=(MARGIN + IMG_SIZE * i, MARGIN))
 
         # colors.append(color_hex_str)
-        print(color_hex_str, end='   ')
+        # print(color_hex_str, end='   ')
         # colors.append(str(rgb_arr))
 
         colors.append(str(rgb_arr[0]))
         colors.append(str(rgb_arr[1]))
         colors.append(str(rgb_arr[2]))
 
-        print(rgb_arr, end='   ')
+        # print(rgb_arr, end='   ')
     # return tiled_color_img
     # color_data='\n'.join(colors)
 
     #1番目からfor文で入れていく
     str_data = colors[0]
     for i in range(1,len(colors)):
-        # r,g(１番目、２番目)のときは,
-        if i%9==0:
+        if i%15==0:
             str_data += '\n' + colors[i]
         else:
             str_data += "," + colors[i]
@@ -70,8 +73,8 @@ def get_main_color_list_img(img_path):
         # else:
         #     str_data += '\n' + colors[i]
     # テキストデータに書き込み
-    with open("rgb_data.txt",'w',encoding="utf-8") as f:
-        f.write(str_data)
+    with open("rgb_data.txt",'w',encoding="utf-8") as fl:
+        fl.write(str_data)
 
 
 
@@ -83,9 +86,8 @@ def get_main_color_list_img(img_path):
 #     return img
 
 if __name__ == '__main__':
-    for f in files:
-        get_main_color_list_img(f)
-
-    # for i in colors:
-    #     print(i)
-# get_original_small_img('un.png')
+    with open("name_data.txt",'w',encoding="utf-8") as namefl:
+        for f in files:
+            get_main_color_list_img(f)
+            namefl.write(os.path.split(f)[1]+'\n')
+        

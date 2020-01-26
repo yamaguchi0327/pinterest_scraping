@@ -41,13 +41,17 @@ soup = BeautifulSoup(html,'lxml')
 
 scroll_num = 0
 
-for sc in range(1,20):
+for sc in range(1,19):
 
     # num = 0
+    # with open("img_data.txt",'w',encoding='utf-8') as fl:
     for link in soup.find_all("img"): # imgタグを取得しlinkに格納
-
+        
         if link.get("src").endswith(".jpg"): # imgタグ内の.jpgであるsrcタグを取得
             images.append(link.get("src")) # imagesリストに格納
+            
+            # fl.write(link.get("src")+'\n')
+            
         # elif link.get("src").endswith(".png"): # imgタグ内の.pngであるsrcタグを取得
         #     images.append(link.get("src")) # imagesリストに格納
         #ループ処理で少しづつ移動
