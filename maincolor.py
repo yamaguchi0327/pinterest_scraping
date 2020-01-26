@@ -13,7 +13,7 @@ files = glob.glob('./img/*.jpg')
 
 #img_path→画像のパスを入力
 def get_main_color_list_img(img_path):
-
+    
 # for f in files:
     # 画像ファイルの読み込み
     cv2_img = cv2.imread(img_path)
@@ -30,7 +30,6 @@ def get_main_color_list_img(img_path):
     cluster_centers_arr = cluster.cluster_centers_.astype(
         int, copy=False)
         
-
     # IMG_SIZE = 64
     # MARGIN = 15
     # width = IMG_SIZE * 5 + MARGIN * 2
